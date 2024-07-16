@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigneshwar Punna - Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --dark-purple: #2b1f5c;
+            --light-purple: #6152a2;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--dark-purple);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(43, 31, 92, 0.8);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 6rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #home {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            transition: all 0.5s ease;
+        }
+
+        .developer-plus {
+            font-size: 5rem;
+            color: var(--light-purple);
+            margin-bottom: 1rem;
+        }
+
+        .changing-text {
+            font-size: 2rem;
+            height: 2.2rem;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            margin-left: 1rem;
+        }
+
+        .description {
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--light-purple);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #7d6db5;
+        }
+
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-image: url("my-suit-img.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-card {
+            background-color: rgba(97, 82, 162, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card {
+            background-color: rgba(97, 82, 162, 0.2);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .project-image {
+            width: 300px;
+            height: 200px;
+            border-radius: 5px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .project-image1 {
+            background-image: url("1.png");
+        }
+        .project-image2 {
+            background-image: url("2.png");
+        }
+        .project-image3 {
+            background-image: url("3.png");
+        }
+        .project-image4 {
+            background-image: url("4.png");
+        }
+
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-skills {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-skill {
+            background-color: var(--light-purple);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-heading {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--light-purple);
+            transition: color 0.3s ease;
+        }
+
+        .contact-icon:hover {
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="background-canvas"></canvas>
+
+    <nav>
+        <div class="logo">Vigneshwar</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="section">
+        <div class="home-content">
+            <h1>Vigneshwar Punna</h1>
+            <p class="developer-plus">Developer+</p>
+            <div class="changing-text"></div>
+            <p class="description">Passionate about leveraging cutting-edge technologies to solve complex problems and drive innovation in the field of AI and Computer Vision.</p>
+            <a href="#about" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h1>About Me</h1>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hello! I'm Vigneshwar Punna, a dedicated and innovative developer with a strong passion for AI and Computer Vision. With a solid background in software engineering and a keen interest in cutting-edge technologies, I strive to create impactful solutions that push the boundaries of what's possible.</p>
+                <p>My journey in tech has been driven by curiosity and a desire to tackle complex challenges. I'm constantly learning and adapting to new technologies, always eager to apply my skills to real-world problems.</p>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2>Skills & Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fas fa-brain skill-icon"></i>
+                <h3>Artificial Intelligence</h3>
+                <p>Deep learning, neural networks, and machine learning algorithms</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-eye skill-icon"></i>
+                <h3>Computer Vision</h3>
+                <p>Image processing, object detection, and facial recognition</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-code skill-icon"></i>
+                <h3>Competitive Programming</h3>
+                <p>C++, Data Structures, Algorithms</p>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-project-diagram skill-icon"></i>
+                <h3>Data Science</h3>
+                <p>Data analysis, visualization, and predictive modeling</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="project-card">
+            <div class="project-image project-image1"></div>
+            <div class="project-info">
+                <h3>AI-Powered Plant Disease Classification</h3>
+                <p>Developed a state-of-the-art image classofication system using deep learning techniques. The system can accurately identify and classify objects in real-time, with applications in agricultural farming</p>
+                <div class="project-skills">
+                    <span class="project-skill">Python</span>
+                    <span class="project-skill">TensorFlow</span>
+                    <span class="project-skill">Computer Vision</span>
+                    <span class="project-skill">Deep Learning</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image project-image2"></div>
+            <div class="project-info">
+                <h3>Academic Score Predictor ML Model</h3>
+                <p>Developed an end-to-end machine learning project to predict student academic performance based on personal, family, 
+                    and social information.</p>
+                <div class="project-skills">
+                    <span class="project-skill">Python</span>
+                    <span class="project-skill">Scikit-learn</span>
+                    <span class="project-skill">Data Analysis</span>
+                    <span class="project-skill">Machine Learning</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image project-image3"></div>
+            <div class="project-info">
+                <h3>Ai Trainer</h3>
+                <p>Developed a Computer vision model for Exercise pose detection and dumbbell counter</p>
+                <div class="project-skills">
+                    <span class="project-skill">Python</span>
+                    <span class="project-skill">OpenCV</span>
+                    <span class="project-skill">Mediapipe</span>
+                </div>
+            </div>
+        </div>
+        <div class="project-card">
+            <div class="project-image project-image4"></div>
+            <div class="project-info">
+                <h3>Virtual Painter</h3>
+                <p>Developed a hand gesture-based virtual painting application, enabling users to paint virtually</p>
+                <div class="project-skills">
+                    <span class="project-skill">Python</span>
+                    <span class="project-skill">OpenCV</span>
+                    <span class="project-skill">Mediapipe</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="contact-content">
+            <h2 class="contact-heading">Get In Touch</h2>
+            <div class="contact-icons">
+                <a href="mailto:ajaypunna9342@gmail.com"><i class="fas fa-envelope contact-icon"></i></a>
+                <a href="https://github.com/vignesh142" target="_blank"><i class="fab fa-github contact-icon"></i></a>
+                <a href="https://www.linkedin.com/in/vigneshwarpunna" target="_blank"><i class="fab fa-linkedin contact-icon"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Three.js background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('background-canvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const shapes = [];
+        const shapeCount = 15;
+
+        for (let i = 0; i < shapeCount; i++) {
+            let geometry;
+            const randomShape = Math.random();
+            if (randomShape < 0.33) {
+                geometry = new THREE.BoxGeometry();
+            } else if (randomShape < 0.66) {
+                geometry = new THREE.SphereGeometry(0.5, 32, 32);
+            } else {
+                geometry = new THREE.TorusGeometry(0.3, 0.2, 16, 100);
+            }
+
+            const material = new THREE.MeshBasicMaterial({ color: 0x6152a2, wireframe: true });
+            const shape = new THREE.Mesh(geometry, material);
+            shape.position.set(
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10,
+                (Math.random() - 0.5) * 10
+            );
+            shapes.push(shape);
+            scene.add(shape);
+        }
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            shapes.forEach(shape => {
+                shape.rotation.x += 0.01;
+                shape.rotation.y += 0.01;
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Scroll effects
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // Home section effects
+            const homeSection = document.querySelector('#home');
+            const opacity = 1 - Math.min(scrollPosition / windowHeight, 1);
+            homeSection.style.opacity = opacity;
+
+            const title = document.querySelector('h1');
+            const scale = 1 + scrollPosition * 0.001;
+            title.style.transform = `scale(${scale})`;
+
+            // Background shapes interaction
+            shapes.forEach((shape, index) => {
+                const yOffset = Math.sin((scrollPosition + index * 100) * 0.002) * 2;
+                shape.position.y = shape.position.y * 0.9 + yOffset * 0.1;
+            });
+        });
+
+        // Changing text animation
+        const changingText = document.querySelector('.changing-text');
+        const texts = ['AI Enthusiast', 'Computer Vision Specialist', 'Competitive Programmer', 'Innovator'];
+        let currentIndex = 0;
+
+        function updateText() {
+            changingText.style.opacity = 0;
+            changingText.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                changingText.textContent = texts[currentIndex];
+                changingText.style.opacity = 1;
+                changingText.style.transform = 'translateY(0)';
+                currentIndex = (currentIndex + 1) % texts.length;
+            }, 1000);
+        }
+
+        setInterval(updateText, 3000);
+        updateText();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
